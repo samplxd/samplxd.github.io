@@ -143,7 +143,7 @@ var kalafior = [
 
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
-		
+
 		for (var i = 0; i < 9; i++){
 			if ( mousePos.x >= kalafior[i].tile_x && mousePos.x <= kalafior[i].tile_x + canvas.width / 7
 			&& mousePos.y >= kalafior[i].tile_y && mousePos.y <= kalafior[i].tile_y + canvas.width / 7 )
@@ -154,8 +154,14 @@ var kalafior = [
 					ctx.font = "20px Trebuchet";
 					ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
 					ctx.fillText('Score:' + score, 10, 25);
+
+          if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
 					ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-				}
+				  }
+          else{
+          ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+          }
+      }
 			}
 		}
     }, false);
@@ -242,11 +248,11 @@ var tilesheet_data = {
 }
 
 var generator = [
-	
+
 	{inactive: 0},
 	{inactive: 0},
 	{inactive: 0}
-	
+
 ]
 
 var score = 0;
@@ -259,13 +265,12 @@ var generator = setInterval(game, speed);
 var generator2;
 clearInterval(generator2);
 var lives = 5;
-var checklives = lives;
-ctx.fillText('Lives:' + lives, 10, 45);
+ctx.fillText('Lives:' + lives, 10 + canvas.width / 7, 25);
 
-	
+
 function game()
 {
-	
+
   var random = Math.random();
   var threshold = 0;
 
@@ -280,7 +285,7 @@ function game()
 		kalafior[i].sprouting = 1;
 	}
   }
-  
+
 };
 
 var updating = setInterval(update, 500)
@@ -300,21 +305,23 @@ var animate = [
 
 function update() {
 
-        swiitch (score){
-           case 5: { if (difficulty == 0) {game_speed -= 1 / 2;} difficulty = 1; break}
+        switch (score) {
+           case 5: {if (difficulty == 0) {clearInterval(generator); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed)} difficulty = 1; break}
            case 10: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
-           case 15: { if (difficulty == w) {game_speed -= 1 / 2;} difficulty = 3; break}
+           case 15: { if (difficulty == 2) {clearInterval(generator); clearInterval(generator2); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 3; break}
+           case 20: { if (difficulty == 3) {clearInterval(generator); clearInterval(generator2); game_speed -= 1 / 2; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 4; break}
+           default: {break;}
+
            }
 
-        checklives = lives;
 	for (var i = 0; i < 9; i++){
-	
+
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
-		
+
 			if (kalafior[i].active == 1) {
 				animate[i].state++;
 				switch (animate[i].state) {
-					
+
 					case 1:
 					case 3:
 					case 5:
@@ -337,12 +344,12 @@ function update() {
 						lives -= 1;
 						break;
 					}
-				
+
 				}
-				
+
 			}
 			else { animate[i].state = 0; }
-			
+
 			if (kalafior[i].sprouting > 0) {
 
 				switch (kalafior[i].sprouting) {
@@ -365,14 +372,14 @@ function update() {
 				}
 
 			}
-			
+
 		}
 		else {
-		
+
 			if (kalafior[i].active == 1) {
 				animate[i].state++;
 				switch (animate[i].state) {
-					
+
 					case 1:
 					case 3:
 					case 5:
@@ -395,12 +402,12 @@ function update() {
 						lives -= 1;
 						break;
 					}
-				
+
 				}
-				
+
 			}
 			else animate[i].state = 0;
-			
+
 			if (kalafior[i].sprouting > 0) {
 
 				switch (kalafior[i].sprouting) {
@@ -423,48 +430,46 @@ function update() {
 				}
 
 			}
-			
+
 		}
-		
+
 		if (kalafior[i].sprouting >= 1) {
-		
+
 			kalafior[i].sprouting++;
 				if (kalafior[i].sprouting == 5) {
 					kalafior[i].sprouting = 0;
 					kalafior[i].active = 1;
 				};
-	
+
 		}
-	
+
 	if (lives <= 0)
 	{
 		for (var i = 0; i < 9; i++){
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
-		
+
 			ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-			
+
 		}
 		else {
-			
+
 			ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-			
+
 		}
 		}
 		clearInterval(updating);
                 clearInterval(generator);
-                clearInrerval(generator2);
+                clearInterval(generator2);
 		ctx.font = "50px Arial";
-		ctx.fillText('Game Over!', (canvas.width / 2) - 3 * 45, canvas.width / 2); 
+		ctx.fillText('Game Over!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
 	}
-	
-	console.log(lives);
-	
+
 	}
-        If (lives != checklives) {
-        ctx.font = "20px Trebuchet";
-	ctx.fillText('Lives:' + lives, 10, 45);
-        }
-        checklives = lives;
+
+  ctx.font = "20px Trebuchet";
+  ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
+	ctx.fillText('Lives:' + lives, canvas.width / 7 + 10, 25);
+
 }
 
 window.addEventListener('load',posCheck);
@@ -476,4 +481,3 @@ for (var i = 0; i < 9; i++){
   console.log(kalafior[i]);
 }
 };
-
