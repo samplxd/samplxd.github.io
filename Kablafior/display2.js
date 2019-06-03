@@ -151,9 +151,10 @@ var kalafior = [
 				if (kalafior[i].active == 1) {
 					kalafior[i].active = 0;
 					score++;
-					ctx.font = "20px Trebuchet";
+					ctx.font = "20px Didact Gothic";
 					ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
-					ctx.fillText('Score:' + score, 10, 25);
+          ctx.fillText('Score:', 10, 25);
+          ctx.fillText(score, 10, 43);
 
           if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
 					ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
@@ -256,7 +257,8 @@ var generator = [
 ]
 
 var score = 0;
-ctx.fillText('Score:' + score, 10, 25);
+ctx.fillText('Score:', 10, 25);
+ctx.fillText(score, 10, 43);
 var game_speed = 3;
 var difficulty = 0;
 
@@ -264,8 +266,10 @@ var speed = 1000 * game_speed;
 var generator = setInterval(game, speed);
 var generator2;
 clearInterval(generator2);
-var lives = 5;
-ctx.fillText('Lives:' + lives, 10 + canvas.width / 7, 25);
+var lives = 3;
+ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+ctx.fillText(lives, canvas.width / 7 + 10, 43);
+
 
 
 function game()
@@ -276,7 +280,7 @@ function game()
 
   for (var i = 0; i < 9; i++){
 
-	threshold = i * 0.111;
+	threshold = 0.111 + i * 0.111;
 	if (random >= threshold - 0.111 && random <= threshold)
 	{
 		if (kalafior[i].sprouting >= 1 || kalafior[i].active == 1){
@@ -307,11 +311,11 @@ function update() {
 
         switch (score) {
            case 5: {if (difficulty == 0) {clearInterval(generator); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed)} difficulty = 1; break}
-           case 10: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
-           case 15: { if (difficulty == 2) {clearInterval(generator); clearInterval(generator2); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 3; break}
-           case 20: { if (difficulty == 3) {clearInterval(generator); clearInterval(generator2); game_speed -= 1 / 2; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 4; break}
+           case 15: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
+           case 30: { if (difficulty == 2) {clearInterval(generator); clearInterval(generator2); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 3; break}
+           case 50: { if (difficulty == 3) {clearInterval(generator); clearInterval(generator2); game_speed -= 1 / 2; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 4; break}
+           case 150: { if (difficulty == 4) {clearInterval(updating); updating = setInterval(update, 250);}difficulty = 5; break;}
            default: {break;}
-
            }
 
 	for (var i = 0; i < 9; i++){
@@ -458,18 +462,22 @@ function update() {
 		}
 		}
 		clearInterval(updating);
-                clearInterval(generator);
-                clearInterval(generator2);
-		ctx.font = "50px Arial";
-		ctx.fillText('Game Over!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
+    clearInterval(generator);
+    clearInterval(generator2);
+		ctx.font = "50px Didact Gothic";
+		ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
 	}
 
 	}
 
-  ctx.font = "20px Trebuchet";
+  ctx.font = "20px Didact Gothic";
   ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
-	ctx.fillText('Lives:' + lives, canvas.width / 7 + 10, 25);
+	ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+  ctx.fillText(lives, canvas.width / 7 + 10, 43);
 
+  ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
+  ctx.fillText('Score:', 10, 25);
+  ctx.fillText(score, 10, 43);
 }
 
 window.addEventListener('load',posCheck);

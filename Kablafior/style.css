@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 0;
+  background-image: url('img/background.png');
+  font-family: 'Didact Gothic'
+}
+
+.bg {
+  background-image: url('img/background.png');
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.main {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 375%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  text-decoration: underline;
+}
+
+.left, .right {
+font-size: 150%;
+width: 30%;
+display: inline-block;
+margin: 0 5%;
+margin-bottom: 5%
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: 'Didact Gothic';
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  width: 40%;
+  border: 1px solid #f1f1f1;
+  opacity: 0.6;
+}
+
+.button:hover {opacity: 1}

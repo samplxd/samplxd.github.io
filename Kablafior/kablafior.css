@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap');
 
 * { box-sizing:border-box; margin:0; padding:0; }
 
@@ -10,10 +10,11 @@ html { height:100%; width:100%; }
   align-items:space-around;
   background-color:#202830;
   display:grid;
-  justify-items:center;
+  justify-content:center;
   height:100%;
   width:100%;
   font-family: 'Indie Flower', cursive;
+  cursor: url("img/mouseup.png"), auto;
 
 }
 
