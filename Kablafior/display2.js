@@ -314,7 +314,7 @@ function update() {
            case 15: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
            case 30: { if (difficulty == 2) {clearInterval(generator); clearInterval(generator2); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 3; break}
            case 50: { if (difficulty == 3) {clearInterval(generator); clearInterval(generator2); game_speed -= 1 / 2; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 4; break}
-           case 150: { if (difficulty == 4) {clearInterval(updating); updating = setInterval(update, 250);}difficulty = 5; break;}
+           case 150: { if (difficulty == 4) {clearInterval(updating); updating = setInterval(update, 333);}difficulty = 5; break;}
            default: {break;}
            }
 
