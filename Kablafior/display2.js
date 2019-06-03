@@ -253,16 +253,15 @@ var score = 0;
 ctx.fillText('Score:' + score, 10, 25);
 var game_speed = 3;
 var difficulty = 0;
-var difficultyup = 0;
+
 var speed = 1000 * game_speed;
-generator[0] = setInterval(game, speed);
+var generator = setInterval(game, speed);
+var generator2;
+clearInterval(generator2);
 var lives = 5;
+var checklives = lives;
 ctx.fillText('Lives:' + lives, 10, 45);
 
-	if (difficultyup = 1){
-		difficulty++;
-		{generator[difficulty] = setInterval(game, speed);}
-	}
 	
 function game()
 {
@@ -301,6 +300,13 @@ var animate = [
 
 function update() {
 
+        swiitch (score){
+           case 5: { if (difficulty == 0) {game_speed -= 1 / 2;} difficulty = 1; break}
+           case 10: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
+           case 15: { if (difficulty == w) {game_speed -= 1 / 2;} difficulty = 3; break}
+           }
+
+        checklives = lives;
 	for (var i = 0; i < 9; i++){
 	
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
@@ -433,7 +439,6 @@ function update() {
 	if (lives <= 0)
 	{
 		for (var i = 0; i < 9; i++){
-		clearInterval(generator[i]);
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
 		
 			ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
@@ -446,6 +451,8 @@ function update() {
 		}
 		}
 		clearInterval(updating);
+                clearInterval(generator);
+                clearInrerval(generator2);
 		ctx.font = "50px Arial";
 		ctx.fillText('Game Over!', (canvas.width / 2) - 3 * 45, canvas.width / 2); 
 	}
@@ -453,7 +460,11 @@ function update() {
 	console.log(lives);
 	
 	}
+        If (lives != checklives) {
+        ctx.font = "20px Trebuchet";
 	ctx.fillText('Lives:' + lives, 10, 45);
+        }
+        checklives = lives;
 }
 
 window.addEventListener('load',posCheck);
