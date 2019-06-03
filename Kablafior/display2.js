@@ -88,7 +88,7 @@
   /* The world holds information about the tile map. */
   world = {
 
-    map: [15, 7, 15, 7, 7, 7, 15,
+    map: [7, 7, 15, 7, 7, 7, 15,
           7, 8, 7, 0, 15, 8, 7,
           7, 7, 15, 7, 7, 7, 7,
           7, 8, 7, 8, 7, 0, 15,
@@ -127,30 +127,37 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 var img = document.getElementById('tilesheet');
 
-var kalafior1 = {active: 0, sprouting: 0};
-var kalafior2 = {active: 0, sprouting: 0};
-var kalafior3 = {active: 0, sprouting: 0};
-var kalafior4 = {active: 0, sprouting: 0};
-var kalafior5 = {active: 0, sprouting: 0};
-var kalafior6 = {active: 0, sprouting: 0};
-var kalafior7 = {active: 0, sprouting: 0};
-var kalafior8 = {active: 0, sprouting: 0};
-var kalafior9 = {active: 0, sprouting: 0};
+
+
+var kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+]
 
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
-        alert(mousePos.x + ',' + mousePos.y);
-        if (mousePos.x >= canvas.width / 7 * 1 && mousePos.x <= canvas.width / 7 * 2) {
-          if (mousePos.y >= canvas.height / 7 * 1 && mousePos.y <= canvas.height / 7 * 2){
-            console.log('kalafior1');
-          }
-          if (mousePos.y >= canvas.height / 7 * 3 && mousePos.y <= canvas.height / 7 * 4){
-            console.log('kalafior4');
-          }
-          if (mousePos.y >= canvas.height / 7 * 5 && mousePos.y <= canvas.height / 7 * 6){
-            console.log('kalafior7');
-          }
-        }
+		
+		for (var i = 0; i < 9; i++){
+			if ( mousePos.x >= kalafior[i].tile_x && mousePos.x <= kalafior[i].tile_x + canvas.width / 7
+			&& mousePos.y >= kalafior[i].tile_y && mousePos.y <= kalafior[i].tile_y + canvas.width / 7 )
+			{
+				if (kalafior[i].active == 1) {
+					kalafior[i].active = 0;
+					score++;
+					ctx.font = "20px Trebuchet";
+					ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
+					ctx.fillText('Score:' + score, 10, 25);
+					ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+				}
+			}
+		}
     }, false);
 
 
@@ -166,25 +173,25 @@ var kalafior9 = {active: 0, sprouting: 0};
 function posCheck()
   {
 
-    kalafior1.tile_x = canvas.width / 7 * 1;
-    kalafior2.tile_x = canvas.width / 7 * 3;
-    kalafior3.tile_x = canvas.width / 7 * 5;
-    kalafior4.tile_x = canvas.width / 7 * 1;
-    kalafior5.tile_x = canvas.width / 7 * 3;
-    kalafior6.tile_x = canvas.width / 7 * 5;
-    kalafior7.tile_x = canvas.width / 7 * 1;
-    kalafior8.tile_x = canvas.width / 7 * 3;
-    kalafior9.tile_x = canvas.width / 7 * 5;
+    kalafior[0].tile_x = canvas.width / 7 * 1;
+    kalafior[1].tile_x = canvas.width / 7 * 3;
+    kalafior[2].tile_x = canvas.width / 7 * 5;
+    kalafior[3].tile_x = canvas.width / 7 * 1;
+    kalafior[4].tile_x = canvas.width / 7 * 3;
+    kalafior[5].tile_x = canvas.width / 7 * 5;
+    kalafior[6].tile_x = canvas.width / 7 * 1;
+    kalafior[7].tile_x = canvas.width / 7 * 3;
+    kalafior[8].tile_x = canvas.width / 7 * 5;
 
-    kalafior1.tile_y = canvas.height / 7 * 1;
-    kalafior2.tile_y = canvas.height / 7 * 1;
-    kalafior3.tile_y = canvas.height / 7 * 1;
-    kalafior4.tile_y = canvas.height / 7 * 3;
-    kalafior5.tile_y = canvas.height / 7 * 3;
-    kalafior6.tile_y = canvas.height / 7 * 3;
-    kalafior7.tile_y = canvas.height / 7 * 5;
-    kalafior8.tile_y = canvas.height / 7 * 5;
-    kalafior9.tile_y = canvas.height / 7 * 5;
+    kalafior[0].tile_y = canvas.height / 7 * 1;
+    kalafior[1].tile_y = canvas.height / 7 * 1;
+    kalafior[2].tile_y = canvas.height / 7 * 1;
+    kalafior[3].tile_y = canvas.height / 7 * 3;
+    kalafior[4].tile_y = canvas.height / 7 * 3;
+    kalafior[5].tile_y = canvas.height / 7 * 3;
+    kalafior[6].tile_y = canvas.height / 7 * 5;
+    kalafior[7].tile_y = canvas.height / 7 * 5;
+    kalafior[8].tile_y = canvas.height / 7 * 5;
 
   }
 
@@ -234,222 +241,228 @@ var tilesheet_data = {
 
 }
 
-var game_speed = 5;
-var speed = 1000 * game_speed;
-var generator = setInterval(game, speed)
+var generator = [
+	
+	{inactive: 0},
+	{inactive: 0},
+	{inactive: 0}
+	
+]
 
+var score = 0;
+ctx.fillText('Score:' + score, 10, 25);
+var game_speed = 3;
+var difficulty = 0;
+var difficultyup = 0;
+var speed = 1000 * game_speed;
+generator[0] = setInterval(game, speed);
+var lives = 5;
+ctx.fillText('Lives:' + lives, 10, 45);
+
+	if (difficultyup = 1){
+		difficulty++;
+		{generator[difficulty] = setInterval(game, speed);}
+	}
+	
 function game()
 {
-
+	
   var random = Math.random();
+  var threshold = 0;
 
-  if (random <= 0.11){
-    if (kalafior1.sprouting >= 1 || kalafior1.active == 1){game();}
-    kalafior1.sprouting = 1;
+  for (var i = 0; i < 9; i++){
+
+	threshold = i * 0.111;
+	if (random >= threshold - 0.111 && random <= threshold)
+	{
+		if (kalafior[i].sprouting >= 1 || kalafior[i].active == 1){
+			game(); break;
+			}
+		kalafior[i].sprouting = 1;
+	}
   }
-
-  if (random > 0.11 && random <= 0.22){
-    if (kalafior2.sprouting >= 1 || kalafior2.active == 1){game();}
-    kalafior2.sprouting = 1;
-  };
-
-  if (random > 0.22 && random <= 0.33){
-    if (kalafior3.sprouting >= 1 || kalafior3.active == 1){game();}
-    kalafior3.sprouting = 1;
-  };
-
-  if (random > 0.33 && random <= 0.44){
-    if (kalafior4.sprouting >= 1 || kalafior4.active == 1){game();}
-    kalafior4.sprouting = 1;
-  };
-
-  if (random > 0.44 && random <= 0.55){
-    if (kalafior5.sprouting >= 1 || kalafior5.active == 1){game();}
-    kalafior5.sprouting = 1;
-  };
-
-  if (random > 0.55 && random <= 0.66){
-    if (kalafior6.sprouting >= 1 || kalafior6.active == 1){game();}
-    kalafior6.sprouting = 1;
-  };
-
-  if (random > 0.66 && random <= 0.77){
-    if (kalafior7.sprouting >= 1 || kalafior7.active == 1){game();}
-    kalafior7.sprouting = 1;
-  };
-
-  if (random > 0.77 && random <= 0.88){
-    if (kalafior8.sprouting >= 1 || kalafior8.active == 1){game();}
-    kalafior8.sprouting = 1;
-  };
-
-  if (random > 0.88){
-    if (kalafior9.sprouting >= 1 || kalafior9.active == 1){game();}
-    kalafior9.sprouting = 1;
-  };
-  console.log("now");
+  
 };
 
 var updating = setInterval(update, 500)
 
-var animate = {
 
-    n1: 0,
-    n2: 0,
-    n3: 0,
-    n4: 0,
-    n5: 0,
-    n6: 0,
-    n7: 0,
-    n8: 0,
-    n9: 0
-
-}
+var animate = [
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0},
+{state: 0}
+]
 
 function update() {
 
-if (kalafior1.active == 1){
+	for (var i = 0; i < 9; i++){
+	
+		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
+		
+			if (kalafior[i].active == 1) {
+				animate[i].state++;
+				switch (animate[i].state) {
+					
+					case 1:
+					case 3:
+					case 5:
+					case 7:
+					{
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior5_1_x, tilesheet_data.kalafior5_1_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+					break;
+					}
+					case 2:
+					case 4:
+					case 6:
+					{
+							ctx.drawImage(tilesheet, tilesheet_data.kalafior5_2_x, tilesheet_data.kalafior5_2_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+					break;
+					}
+					case 8:
+					{
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						kalafior[i].active = 0;
+						lives -= 1;
+						break;
+					}
+				
+				}
+				
+			}
+			else { animate[i].state = 0; }
+			
+			if (kalafior[i].sprouting > 0) {
 
-    animate.n1 ++;
+				switch (kalafior[i].sprouting) {
+					case 1: {
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior1_x, tilesheet_data.kalafior1_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 2: {
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior2_x, tilesheet_data.kalafior2_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 3: {
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior3_x, tilesheet_data.kalafior3_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 4: {
+						ctx.drawImage(tilesheet, tilesheet_data.kalafior4_x, tilesheet_data.kalafior4_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+						}
+				}
 
-    switch (animate.n1) {
-      case 1:
-      case 3:
-      case 5:
-      {
-          ctx.drawImage(tilesheet, tilesheet_data.kalafior5_1_x, tilesheet_data.kalafior5_1_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-          break;
-      }
-      case 2:
-      case 4:
-      {
-          ctx.drawImage(tilesheet, tilesheet_data.kalafior5_2_x, tilesheet_data.kalafior5_2_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-          break;
-      }
-      case 6:
-      {
-        ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-        kalafior1.active = 0;
-      }
-    }
+			}
+			
+		}
+		else {
+		
+			if (kalafior[i].active == 1) {
+				animate[i].state++;
+				switch (animate[i].state) {
+					
+					case 1:
+					case 3:
+					case 5:
+					case 7:
+					{
+					ctx.drawImage(tilesheet, tilesheet_data.kablafior5_1_x, tilesheet_data.kablafior5_1_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+					break;
+					}
+					case 2:
+					case 4:
+					case 6:
+					{
+					ctx.drawImage(tilesheet, tilesheet_data.kablafior5_2_x, tilesheet_data.kablafior5_2_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+					break;
+					}
+					case 8:
+					{
+						ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						kalafior[i].active = 0;
+						lives -= 1;
+						break;
+					}
+				
+				}
+				
+			}
+			else animate[i].state = 0;
+			
+			if (kalafior[i].sprouting > 0) {
 
+				switch (kalafior[i].sprouting) {
+					case 1: {
+						ctx.drawImage(tilesheet, tilesheet_data.kablafior1_x, tilesheet_data.kablafior1_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 2: {
+						ctx.drawImage(tilesheet, tilesheet_data.kablafior2_x, tilesheet_data.kablafior2_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 3: {
+						ctx.drawImage(tilesheet, tilesheet_data.kablafior3_x, tilesheet_data.kablafior3_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+							}
+					case 4: {
+						ctx.drawImage(tilesheet, tilesheet_data.kablafior4_x, tilesheet_data.kablafior4_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+						break;
+						}
+				}
+
+			}
+			
+		}
+		
+		if (kalafior[i].sprouting >= 1) {
+		
+			kalafior[i].sprouting++;
+				if (kalafior[i].sprouting == 5) {
+					kalafior[i].sprouting = 0;
+					kalafior[i].active = 1;
+				};
+	
+		}
+	
+	if (lives <= 0)
+	{
+		for (var i = 0; i < 9; i++){
+		clearInterval(generator[i]);
+		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
+		
+			ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+			
+		}
+		else {
+			
+			ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+			
+		}
+		}
+		clearInterval(updating);
+		ctx.font = "50px Arial";
+		ctx.fillText('Game Over!', (canvas.width / 2) - 3 * 45, canvas.width / 2); 
+	}
+	
+	console.log(lives);
+	
+	}
+	ctx.fillText('Lives:' + lives, 10, 45);
 }
-else animate.n1 = 0;
-
-if (kalafior1.sprouting > 0) {
-
-  switch (kalafior1.sprouting) {
-    case 1: {
-      ctx.drawImage(tilesheet, tilesheet_data.kalafior1_x, tilesheet_data.kalafior1_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-      break;
-    }
-    case 2: {
-      ctx.drawImage(tilesheet, tilesheet_data.kalafior2_x, tilesheet_data.kalafior2_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-      break;
-    }
-    case 3: {
-      ctx.drawImage(tilesheet, tilesheet_data.kalafior3_x, tilesheet_data.kalafior3_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-      break;
-    }
-    case 4: {
-      ctx.drawImage(tilesheet, tilesheet_data.kalafior4_x, tilesheet_data.kalafior4_y, 32, 32, kalafior1.tile_x, kalafior1.tile_y, canvas.width / 7, canvas.height / 7);
-      break;
-    }
-  }
-
-  kalafior1.sprouting++;
-    if (kalafior1.sprouting == 5) {
-      kalafior1.sprouting = 0;
-      kalafior1.active = 1;
-    };
-  }
-
-  if (kalafior2.sprouting > 0) {
-    kalafior2.sprouting++;
-      if (kalafior2.sprouting == 5) {
-        kalafior2.sprouting = 0;
-        kalafior2.active = 1;
-      };
-    }
-
-    if (kalafior3.sprouting > 0) {
-      kalafior3.sprouting++;
-        if (kalafior3.sprouting == 5) {
-          kalafior3.sprouting = 0;
-          kalafior3.active = 1;
-        };
-      }
-
-      if (kalafior4.sprouting > 0) {
-        kalafior4.sprouting++;
-          if (kalafior4.sprouting == 5) {
-            kalafior4.sprouting = 0;
-            kalafior4.active = 1;
-          };
-        }
-
-
-        if (kalafior5.sprouting > 0) {
-          kalafior5.sprouting++;
-            if (kalafior5.sprouting == 5) {
-              kalafior5.sprouting = 0;
-              kalafior5.active = 1;
-            };
-          }
-
-          if (kalafior6.sprouting > 0) {
-            kalafior6.sprouting++;
-              if (kalafior6.sprouting == 5) {
-                kalafior6.sprouting = 0;
-                kalafior6.active = 1;
-              };
-            }
-
-            if (kalafior7.sprouting > 0) {
-              kalafior7.sprouting++;
-                if (kalafior7.sprouting == 5) {
-                  kalafior7.sprouting = 0;
-                  kalafior7.active = 1;
-                };
-              }
-
-              if (kalafior8.sprouting > 0) {
-                kalafior8.sprouting++;
-                  if (kalafior8.sprouting == 5) {
-                    kalafior8.sprouting = 0;
-                    kalafior8.active = 1;
-                  };
-                }
-
-
-                if (kalafior9.sprouting > 0) {
-                  kalafior9.sprouting++;
-                    if (kalafior9.sprouting == 5) {
-                      kalafior9.sprouting = 0;
-                      kalafior9.active = 1;
-                    };
-                  }
-}
-
-function deactivate(kalafior){
-
-  kalafior.active = 0;
-
-}
-
 
 window.addEventListener('load',posCheck);
 window.addEventListener('resize',posCheck);
 
 function sproutcheck()
 {
-  console.log(kalafior1);
-  console.log(kalafior2);
-  console.log(kalafior3);
-  console.log(kalafior4);
-  console.log(kalafior5);
-  console.log(kalafior6);
-  console.log(kalafior7);
-  console.log(kalafior8);
-  console.log(kalafior9);
+for (var i = 0; i < 9; i++){
+  console.log(kalafior[i]);
+}
 };
+
