@@ -128,19 +128,6 @@ var ctx = canvas.getContext("2d");
 var img = document.getElementById('tilesheet');
 
 
-
-var kalafior = [
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-]
-
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
 
@@ -248,20 +235,23 @@ var tilesheet_data = {
 
 }
 
-var generator = [
-
-	{inactive: 0},
-	{inactive: 0},
-	{inactive: 0}
-
+var startgame = function(){
+var kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
 ]
-
 var score = 0;
 ctx.fillText('Score:', 10, 25);
 ctx.fillText(score, 10, 43);
 var game_speed = 3;
 var difficulty = 0;
-
 var speed = 1000 * game_speed;
 var generator = setInterval(game, speed);
 var generator2;
@@ -269,8 +259,8 @@ clearInterval(generator2);
 var lives = 3;
 ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
 ctx.fillText(lives, canvas.width / 7 + 10, 43);
-
-
+var updating = setInterval(update, 500);
+}
 
 function game()
 {
@@ -291,8 +281,6 @@ function game()
   }
 
 };
-
-var updating = setInterval(update, 500)
 
 
 var animate = [
