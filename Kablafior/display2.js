@@ -181,7 +181,7 @@ function getCookie(cname) {
 
 
 function checkCookie() {
-  var username = getCookie("username");
+  var username = getCookie("highscore");
   if (username != "") {
    var highscore = username);
   } else {
@@ -189,6 +189,8 @@ function checkCookie() {
     }
   }
 }
+
+checkCookie();
 
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
@@ -342,29 +344,6 @@ var animate = [
 {state: 0}
 ]
 
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
 function update() {
 
         switch (score) {
@@ -396,7 +375,7 @@ function update() {
 		}
 	  }
 	 
-	
+	setCookie('highscore', highscore, 365);
 	ctx.font = "50px Didact Gothic";
 	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
 	ctx.font = "25px Didact Gothic";
@@ -548,12 +527,6 @@ function update() {
   ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7 * 6, 0, canvas.width / 7, canvas.height / 7);
   ctx.fillText('Highscore:', canvas.width / 7 * 6 + 10, 25);
   ctx.fillText(highscore, canvas.width / 7 * 6 + 10, 43);
-  
-  function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 }
 
