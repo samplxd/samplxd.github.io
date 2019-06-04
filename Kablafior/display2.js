@@ -183,7 +183,7 @@ function getCookie(cname) {
 function checkCookie() {
   var username = getCookie("highscore");
   if (username != "") {
-   var highscore = username);
+   var highscore = username;
   } else {
     var highscore = 0;
     }
