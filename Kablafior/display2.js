@@ -1,4 +1,4 @@
-(function() { "use strict";
+var rendering = (function() { "use strict";
 
   /* The display handles everything to do with drawing graphics and resizing the
   screen. The world holds the map and its dimensions. */
