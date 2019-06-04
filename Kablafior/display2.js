@@ -179,13 +179,14 @@ function getCookie(cname) {
   return "";
 }
 
+var highscore;
 
 function checkCookie() {
   var username = getCookie("highscore");
   if (username != "") {
-   var highscore = username;
+   highscore = username;
   } else {
-    var highscore = 0;
+   highscore = 0;
     }
   }
 
