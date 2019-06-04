@@ -188,7 +188,6 @@ function checkCookie() {
     var highscore = 0;
     }
   }
-}
 
 checkCookie();
 
