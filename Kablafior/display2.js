@@ -155,6 +155,41 @@ ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
 ctx.fillText(lives, canvas.width / 7 + 10, 43);
 var updating = setInterval(update, 500);
 
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+function checkCookie() {
+  var username = getCookie("username");
+  if (username != "") {
+   var highscore = username);
+  } else {
+    var highscore = 0;
+    }
+  }
+}
+
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
 
@@ -295,7 +330,6 @@ function game()
 
 };
 
-
 var animate = [
 {state: 0},
 {state: 0},
@@ -307,6 +341,29 @@ var animate = [
 {state: 0},
 {state: 0}
 ]
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 function update() {
 
@@ -486,6 +543,18 @@ function update() {
   ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
   ctx.fillText('Score:', 10, 25);
   ctx.fillText(score, 10, 43);
+  
+  if (highscore < score) {highscore = score}
+  ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7 * 6, 0, canvas.width / 7, canvas.height / 7);
+  ctx.fillText('Highscore:', canvas.width / 7 * 6 + 10, 25);
+  ctx.fillText(highscore, canvas.width / 7 * 6 + 10, 43);
+  
+  function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 }
 
 window.addEventListener('load',posCheck);
