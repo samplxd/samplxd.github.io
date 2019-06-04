@@ -319,6 +319,35 @@ function update() {
            default: {break;}
            }
 
+		   if (lives <= 0) {
+		clearInterval(updating);
+		clearInterval(generator);
+		clearInterval(generator2);
+	 if (gameover == 0){
+
+		gameover ++;
+		for (var i = 0; i < 9; i++){
+		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
+
+			ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+
+		}
+		else {
+
+			ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+
+		}
+	  }
+	 
+	
+	ctx.font = "50px Didact Gothic";
+	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
+	ctx.font = "25px Didact Gothic";
+	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
+	}
+	return 0;
+	}
+		   
 	for (var i = 0; i < 9; i++){
 
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
@@ -447,34 +476,6 @@ function update() {
 				};
 
 		}
-	}
-	if (lives <= 0) {
-		clearInterval(updating);
-		clearInterval(generator);
-		clearInterval(generator2);
-	 if (gameover == 0){
-
-		gameover ++;
-		for (var i = 0; i < 9; i++){
-		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
-
-			ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-
-		}
-		else {
-
-			ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-
-		}
-	  }
-	 
-	
-	ctx.font = "50px Didact Gothic";
-	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
-	ctx.font = "25px Didact Gothic";
-	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
-	 }
-	
 	}
 
   ctx.font = "20px Didact Gothic";
