@@ -152,6 +152,7 @@ var img = document.getElementById('tilesheet');
       }
 			}
 		}
+	    if (lives == 0) {startgame();}
     }, false);
 
 
@@ -235,7 +236,18 @@ var tilesheet_data = {
 
 }
 
-var startgame = function(){
+var kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+]
+
 var kalafior = [
 {active: 0, sprouting: 0},
 {active: 0, sprouting: 0},
@@ -260,9 +272,31 @@ var lives = 3;
 ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
 ctx.fillText(lives, canvas.width / 7 + 10, 43);
 var updating = setInterval(update, 500);
-}
 
-startgame();
+var startgame = function(){
+kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+]
+score = 0;
+ctx.fillText('Score:', 10, 25);
+ctx.fillText(score, 10, 43);
+game_speed = 3;
+difficulty = 0;
+speed = 1000 * game_speed;
+generator = setInterval(game, speed);
+lives = 3;
+ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+ctx.fillText(lives, canvas.width / 7 + 10, 43);
+updating = setInterval(update, 500);
+}
 
 function game()
 {
