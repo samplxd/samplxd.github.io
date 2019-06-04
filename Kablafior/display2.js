@@ -154,7 +154,7 @@ var lives = 3;
 ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
 ctx.fillText(lives, canvas.width / 7 + 10, 43);
 var updating = setInterval(update, 500);
-
+var losetimeout;
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -186,7 +186,7 @@ function checkCookie() {
   if (username != "") {
    highscore = username;
   } else {
-   highscore = 0;
+    highscore = 0;
     }
   }
 
@@ -217,7 +217,7 @@ checkCookie();
       }
 			}
 		}
-	    if (lives == 0) {location.reload();}
+	    if (lives == 0 && losetimeout == 1) {location.reload();}
     }, false);
 
 
@@ -345,7 +345,13 @@ var animate = [
 {state: 0}
 ]
 
-function update() {
+function lost(){
+	losetimeout = 1;
+	ctx.font = "25px Didact Gothic";
+	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
+}
+
+function update(){
 
         switch (score) {
            case 5: {if (difficulty == 0) {clearInterval(generator); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed)} difficulty = 1; break}
@@ -379,8 +385,7 @@ function update() {
 	setCookie('highscore', highscore, 365);
 	ctx.font = "50px Didact Gothic";
 	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
-	ctx.font = "25px Didact Gothic";
-	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
+	setTimeout(lost, 1500);
 	}
 	return 0;
 	}
@@ -512,9 +517,8 @@ function update() {
 					kalafior[i].active = 1;
 				};
 
+			}
 		}
-	}
-
   ctx.font = "20px Didact Gothic";
   ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
   ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
