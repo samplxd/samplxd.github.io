@@ -262,6 +262,8 @@ ctx.fillText(lives, canvas.width / 7 + 10, 43);
 var updating = setInterval(update, 500);
 }
 
+startgame();
+
 function game()
 {
 
