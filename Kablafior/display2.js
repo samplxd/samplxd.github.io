@@ -189,6 +189,7 @@ function checkCookie() {
     }
   }
 
+
 checkCookie();
 
     canvas.addEventListener("click", function (evt) {
@@ -526,7 +527,7 @@ function update() {
   ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7 * 6, 0, canvas.width / 7, canvas.height / 7);
   ctx.fillText('Highscore:', canvas.width / 7 * 6 + 10, 25);
   ctx.fillText(highscore, canvas.width / 7 * 6 + 10, 43);
-}
+
 }
 
 window.addEventListener('load',posCheck);
