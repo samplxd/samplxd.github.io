@@ -123,6 +123,31 @@
 
 })();
 
+var kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+]
+var score = 0;
+ctx.fillText('Score:', 10, 25);
+ctx.fillText(score, 10, 43);
+var game_speed = 3;
+var difficulty = 0;
+var speed = 1000 * game_speed;
+var generator = setInterval(game, speed);
+var generator2;
+clearInterval(generator2);
+var lives = 3;
+ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+ctx.fillText(lives, canvas.width / 7 + 10, 43);
+var updating = setInterval(update, 500);
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 var img = document.getElementById('tilesheet');
@@ -247,56 +272,6 @@ var kalafior = [
 {active: 0, sprouting: 0},
 {active: 0, sprouting: 0},
 ]
-
-var kalafior = [
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-]
-var score = 0;
-ctx.fillText('Score:', 10, 25);
-ctx.fillText(score, 10, 43);
-var game_speed = 3;
-var difficulty = 0;
-var speed = 1000 * game_speed;
-var generator = setInterval(game, speed);
-var generator2;
-clearInterval(generator2);
-var lives = 3;
-ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
-ctx.fillText(lives, canvas.width / 7 + 10, 43);
-var updating = setInterval(update, 500);
-
-var startgame = function(){
-kalafior = [
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-]
-score = 0;
-ctx.fillText('Score:', 10, 25);
-ctx.fillText(score, 10, 43);
-game_speed = 3;
-difficulty = 0;
-speed = 1000 * game_speed;
-generator = setInterval(game, speed);
-lives = 3;
-ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
-ctx.fillText(lives, canvas.width / 7 + 10, 43);
-updating = setInterval(update, 500);
-}
 
 function game()
 {
@@ -485,11 +460,11 @@ function update() {
 
 		}
 		}
-		clearInterval(updating);
-    clearInterval(generator);
-    clearInterval(generator2);
-		ctx.font = "50px Didact Gothic";
-		ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
+	clearInterval(updating);
+   	clearInterval(generator);
+   	clearInterval(generator2);
+	ctx.font = "50px Didact Gothic";
+	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
 	}
 
 	}
@@ -513,3 +488,30 @@ for (var i = 0; i < 9; i++){
   console.log(kalafior[i]);
 }
 };
+
+
+var startgame = function(){
+kalafior = [
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+{active: 0, sprouting: 0},
+]
+score = 0;
+ctx.fillText('Score:', 10, 25);
+ctx.fillText(score, 10, 43);
+game_speed = 3;
+difficulty = 0;
+speed = 1000 * game_speed;
+generator = setInterval(game, speed);
+lives = 3;
+ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+ctx.fillText(lives, canvas.width / 7 + 10, 43);
+updating = setInterval(update, 500);
+ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
+}
