@@ -1,4 +1,4 @@
-var rendering = (function() { "use strict";
+(function() { "use strict";
 
   /* The display handles everything to do with drawing graphics and resizing the
   screen. The world holds the map and its dimensions. */
@@ -123,6 +123,13 @@ var rendering = (function() { "use strict";
 
 })();
 
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext("2d");
+var img = document.getElementById('tilesheet');
+
+
+var gameover = 0
 var kalafior = [
 {active: 0, sprouting: 0},
 {active: 0, sprouting: 0},
@@ -148,11 +155,6 @@ ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
 ctx.fillText(lives, canvas.width / 7 + 10, 43);
 var updating = setInterval(update, 500);
 
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext("2d");
-var img = document.getElementById('tilesheet');
-
-
     canvas.addEventListener("click", function (evt) {
         var mousePos = getMousePos(canvas, evt);
 
@@ -177,7 +179,7 @@ var img = document.getElementById('tilesheet');
       }
 			}
 		}
-	    if (lives == 0) {startgame();}
+	    if (lives == 0) {location.reload();}
     }, false);
 
 
@@ -313,7 +315,7 @@ function update() {
            case 15: { if (difficulty == 1) {generator2 = setInterval(game, speed);} difficulty = 2; break}
            case 30: { if (difficulty == 2) {clearInterval(generator); clearInterval(generator2); game_speed -= 1; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 3; break}
            case 50: { if (difficulty == 3) {clearInterval(generator); clearInterval(generator2); game_speed -= 1 / 2; speed = 1000 * game_speed; generator = setInterval(game, speed); generator2 = setInterval(game, speed)} difficulty = 4; break}
-           case 150: { if (difficulty == 4) {clearInterval(updating); updating = setInterval(update, 333);}difficulty = 5; break;}
+           case 150: { if (difficulty == 4) {clearInterval(updating); var updating = setInterval(update, 333);}difficulty = 5; break;}
            default: {break;}
            }
 
@@ -445,9 +447,14 @@ function update() {
 				};
 
 		}
+	}
+	if (lives <= 0) {
+		clearInterval(updating);
+		clearInterval(generator);
+		clearInterval(generator2);
+	 if (gameover == 0){
 
-	if (lives <= 0)
-	{
+		gameover ++;
 		for (var i = 0; i < 9; i++){
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
 
@@ -459,19 +466,20 @@ function update() {
 			ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
 
 		}
-		}
-	clearInterval(updating);
-   	clearInterval(generator);
-   	clearInterval(generator2);
+	  }
+	 
+	
 	ctx.font = "50px Didact Gothic";
 	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
-	}
-
+	ctx.font = "25px Didact Gothic";
+	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
+	 }
+	
 	}
 
   ctx.font = "20px Didact Gothic";
   ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
-	ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
+  ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
   ctx.fillText(lives, canvas.width / 7 + 10, 43);
 
   ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
@@ -481,37 +489,3 @@ function update() {
 
 window.addEventListener('load',posCheck);
 window.addEventListener('resize',posCheck);
-
-function sproutcheck()
-{
-for (var i = 0; i < 9; i++){
-  console.log(kalafior[i]);
-}
-};
-
-
-var startgame = function(){
-kalafior = [
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-{active: 0, sprouting: 0},
-]
-score = 0;
-ctx.fillText('Score:', 10, 25);
-ctx.fillText(score, 10, 43);
-game_speed = 3;
-difficulty = 0;
-speed = 1000 * game_speed;
-generator = setInterval(game, speed);
-lives = 3;
-ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
-ctx.fillText(lives, canvas.width / 7 + 10, 43);
-updating = setInterval(update, 500);
-ctx.drawImage(tilesheet, tilesheet_data.kablafior0_x, tilesheet_data.kablafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
-}
