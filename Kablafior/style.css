@@ -39,12 +39,28 @@ body, html {
   text-decoration: underline;
 }
 
+img {
+  max-width: 10%;
+  vertical-align:middle;
+}
+
+.titleimg {
+  max-width: 55%;
+
+}
+
 .left, .right {
-font-size: 150%;
-width: 30%;
+font-size: 250%;
+width: 35%;
 display: inline-block;
 margin: 0 5%;
 margin-bottom: 5%
+}
+
+.middle {margin-bottom: 5%; font-size: 250%;}
+
+.bottom {
+  max-width: 5%;
 }
 
 .button {
@@ -55,15 +71,15 @@ margin-bottom: 5%
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
-  margin: 4px 2px;
+  font-size: 60px;
   cursor: pointer;
   font-family: 'Didact Gothic';
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
-  width: 40%;
+  width: 60%;
+  height: auto;
   border: 1px solid #f1f1f1;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 .button:hover {opacity: 1}

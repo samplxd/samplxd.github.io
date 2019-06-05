@@ -126,8 +126,6 @@
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
-var img = document.getElementById('tilesheet');
-
 
 var gameover = 0
 var kalafior = [
@@ -179,7 +177,7 @@ function getCookie(cname) {
   return "";
 }
 
-var highscore;
+var highscore = 0;
 
 function checkCookie() {
   var username = getCookie("highscore");
@@ -203,10 +201,10 @@ checkCookie();
 				if (kalafior[i].active == 1) {
 					kalafior[i].active = 0;
 					score++;
-					ctx.font = "20px Didact Gothic";
-					ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
-          ctx.fillText('Score:', 10, 25);
-          ctx.fillText(score, 10, 43);
+
+          printscore();
+
+          printhighscore();
 
           if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
 					ctx.drawImage(tilesheet, tilesheet_data.kalafior0_x, tilesheet_data.kalafior0_y, 32, 32, kalafior[i].tile_x, kalafior[i].tile_y, canvas.width / 7, canvas.height / 7);
@@ -229,6 +227,17 @@ checkCookie();
             y: evt.clientY - rect.top
         };
     }
+
+    function printscore(){
+      ctx.font = "55px VT323";
+      ctx.drawImage(score_img, 0, 0, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
+      ctx.fillText(score, 10, canvas.width / 7 /14 * 10);
+    }
+
+    function printhighscore(){ if (highscore < score) {highscore = score}
+    ctx.font = "55px VT323";
+    ctx.drawImage(highscore_img, 0, 0, 32, 32, canvas.width / 7 * 6, 0, canvas.width / 7, canvas.height / 7);
+    ctx.fillText(highscore, canvas.width / 7 * 6, canvas.width /7 /14 * 8);}
 
 function posCheck()
   {
@@ -347,8 +356,11 @@ var animate = [
 
 function lost(){
 	losetimeout = 1;
-	ctx.font = "25px Didact Gothic";
-	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, canvas.width / 2 + 25);
+	ctx.font = "26px VT323";
+  ctx.drawImage(gameover_img, 0, 0, 96, 32, canvas.width / 7 * 2, canvas.width / 7 * 3, canvas.width / 7 * 3, canvas.height / 7);
+	ctx.fillText('kliknij, aby zagrac ponownie', (canvas.width / 2) - 3 * 49, (canvas.width / 7 * 4) + canvas.width / 32 );
+  printhighscore();
+  setCookie('highscore', highscore, 365);
 }
 
 function update(){
@@ -381,15 +393,14 @@ function update(){
 
 		}
 	  }
-	 
+
 	setCookie('highscore', highscore, 365);
-	ctx.font = "50px Didact Gothic";
-	ctx.fillText('GAME OVER!', (canvas.width / 2) - 3 * 45, canvas.width / 2);
+	ctx.drawImage(gameover_img, 0, 0, 96, 32, canvas.width / 7 * 2, canvas.width / 7 * 3, canvas.width / 7 * 3, canvas.height / 7);
 	setTimeout(lost, 1500);
 	}
 	return 0;
 	}
-		   
+
 	for (var i = 0; i < 9; i++){
 
 		if (i == 0 || i == 2 || i == 3 || i == 4 || i == 7 || i == 8){
@@ -519,19 +530,16 @@ function update(){
 
 			}
 		}
-  ctx.font = "20px Didact Gothic";
-  ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
-  ctx.fillText('Lives:', canvas.width / 7 + 10, 25);
-  ctx.fillText(lives, canvas.width / 7 + 10, 43);
 
-  ctx.drawImage(tilesheet, 96, 32, 32, 32, 0, 0, canvas.width / 7, canvas.height / 7);
-  ctx.fillText('Score:', 10, 25);
-  ctx.fillText(score, 10, 43);
-  
-  if (highscore < score) {highscore = score}
-  ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7 * 6, 0, canvas.width / 7, canvas.height / 7);
-  ctx.fillText('Highscore:', canvas.width / 7 * 6 + 10, 25);
-  ctx.fillText(highscore, canvas.width / 7 * 6 + 10, 43);
+  switch (lives) {
+    case 1: { ctx.drawImage(lives_1, 0, 0, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7); break;}
+    case 2: { ctx.drawImage(lives_2, 0, 0, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7); break;}
+    case 3: { ctx.drawImage(lives_3, 0, 0, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7); break;}
+    default: ctx.drawImage(tilesheet, 96, 32, 32, 32, canvas.width / 7, 0, canvas.width / 7, canvas.height / 7);
+  }
+
+  printscore();
+  printhighscore();
 
 }
 
